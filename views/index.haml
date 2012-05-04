@@ -1,2 +1,43 @@
-%form{ :action => '/', :method => 'POST' }
-  %input{ :type => 'text', :name => "public_key" }
+!!!
+
+%html
+  %head
+    %title skipper - the way to send file to coworkers
+
+  %body
+    %h1 skipper - the way to send file to coworkers
+
+    %ol
+      %li
+        %h2 Get authenticated
+        %div
+          %form{ :action => '/', :method => 'POST' }
+            %label{ :for => :public_key }
+              SSH public key
+            %input{ :type => :text, :name => :public_key, :id => :public_key, :placeholder => "should be the content of .ssh/id_rsa.pub" }
+
+      %li
+        %h2 Configure for convenience
+        %p Add these lines to ~/.ssh/config
+        %pre
+          :preserve
+            Host skipper
+              HostName 192.168.7.34
+              Compression yes
+              User skipper
+
+      %li
+        %h2 See it in action
+        %p When Alice needs database backup file from Bruce:
+        %dl
+          %dt Bruce would
+          %dd
+            %pre
+              :preserve
+                scp database_backup.sql skipper:database_back.sql
+
+          %dt Alice would
+          %dd
+            %pre
+              :preserve
+                scp skipper:database_back.sql database_back.sql
