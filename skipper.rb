@@ -7,7 +7,7 @@ end
 
 post '/' do
     key = params["public_key"]
-    File.open("authorized_keys", "a") do |f|
+    File.open("/home/skipper/.ssh/authorized_keys", "a") do |f|
         f << key
         f << "\n"
     end
